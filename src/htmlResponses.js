@@ -1,10 +1,9 @@
-const fs = require('fs');
-const { IncomingMessage, ServerResponse } = require('http');
+// const fs = require('fs');
 
 /**
  * Gets the index html page.
- * @param {IncomingMessage} request 
- * @param {ServerResponse} response 
+ * @param {http.IncomingMessage} request
+ * @param {http.ServerResponse} response
  */
 const getIndex = (request, response) => {
 
@@ -12,14 +11,14 @@ const getIndex = (request, response) => {
 
 /**
  * Gets the CSS stylesheet.
- * @param {IncomingMessage} request 
- * @param {ServerResponse} response 
+ * @param {http.IncomingMessage} request
+ * @param {http.ServerResponse} response
  */
 const getCSS = (request, response) => {
 
 };
 
 module.exports = {
-    getIndex,
-    getCSS,
+  getIndex,
+  getCSS,
 };
