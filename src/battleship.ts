@@ -36,7 +36,16 @@ export class BattleshipGame {
     }
 
     setBattleships(player:BattleshipGame.Player, ships:Array<Battleship>) {
-        if (this.status !== BattleshipGame.Status.Prestart) throw new Error('Battleships cannot be placed at this time.');
+        if (ships.length < BattleshipGame.battleshipsTemplate.length) {
+            throw new Error('Too few battleships. No ships placed.');
+        }
+        if (ships.map(ship => ship.length).sort().join("") !== 
+            BattleshipGame.battleshipsTemplate.map(ship => ship.length).sort().join("")) {
+                throw new Error('Invalid ships: Ships are the wrong sizes. No ships placed');
+        }
+        if (this.status !== BattleshipGame.Status.Prestart) {
+            throw new Error('Battleships cannot be placed at this time. No ships placed.');
+        }
         
         const newBoard = new Array(10).fill(new Array(10).fill(false));
         for (const ship of ships) {
@@ -46,7 +55,9 @@ export class BattleshipGame {
                     throw new RangeError(`Battleship placed out of bounds. No ships placed.`);
                 }
                 // ship on top of another ship
-                if (newBoard[cell.row][cell.column]) throw new Error(`Overlap between battleships. No ships placed.`);
+                if (newBoard[cell.row][cell.column]) {
+                    throw new Error(`Overlap between battleships. No ships placed.`);
+                }
                 newBoard[cell.row][cell.column] = true;
             }
         }
@@ -120,6 +131,15 @@ export class BattleshipGame {
             'sunkShips': null,
         };
     }
+
+    static emptyBoard = new Array(10).fill(new Array(10).fill(false));
+    static battleshipsTemplate = [
+        new Array<Battleship>(5),
+        new Array<Battleship>(4),
+        new Array<Battleship>(3),
+        new Array<Battleship>(3),
+        new Array<Battleship>(2),
+    ];
 }
 
 type Cell = {
