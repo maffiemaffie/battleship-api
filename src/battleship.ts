@@ -37,14 +37,14 @@ export class BattleshipGame {
 
     setBattleships(player:BattleshipGame.Player, ships:Array<Battleship>) {
         if (ships.length < BattleshipGame.battleshipsTemplate.length) {
-            throw new Error('Too few battleships. No ships placed.');
+            throw new BattleshipGame.InvalidParametersError('Too few battleships. No ships placed.');
         }
         if (ships.map(ship => ship.length).sort().join("") !== 
             BattleshipGame.battleshipsTemplate.map(ship => ship.length).sort().join("")) {
-                throw new Error('Invalid ships: Ships are the wrong sizes. No ships placed');
+                throw new BattleshipGame.InvalidParametersError('Invalid ships: Ships are the wrong sizes. No ships placed');
         }
         if (this.status !== BattleshipGame.Status.Prestart) {
-            throw new Error('Battleships cannot be placed at this time. No ships placed.');
+            throw new BattleshipGame.OutOfTurnError('Battleships cannot be placed at this time. No ships placed.');
         }
         
         const newBoard = new Array(10).fill(new Array(10).fill(false));
@@ -73,11 +73,11 @@ export class BattleshipGame {
     shootTarget(player:BattleshipGame.Player, target:Cell):{'isHit':boolean,'sunkShips':Battleship|null} {
         // out of turn or before/after game has started.
         if (player === BattleshipGame.Player.Player1 && this.status !== BattleshipGame.Status.Player1Turn) {
-            throw new Error(`Target cannot be attacked at this time. No action was performed.`);
+            throw new BattleshipGame.OutOfTurnError(`Target cannot be attacked at this time. No action was performed.`);
         }
         // out of turn or before/after game has started.
         if (player === BattleshipGame.Player.Player2 && this.status !== BattleshipGame.Status.Player2Turn) {
-            throw new Error(`Target cannot be attacked at this time. No action was performed.`);
+            throw new BattleshipGame.OutOfTurnError(`Target cannot be attacked at this time. No action was performed.`);
         }
         // target out of range.
         if (target.row < 0 || target.column < 0 || target.row > 9 || target.column > 9) {
@@ -164,5 +164,19 @@ export namespace BattleshipGame {
     export enum Player {
         Player1 = "player1",
         Player2 = "player2",
+    }
+
+    export class OutOfTurnError extends Error {
+        constructor(message:string) {
+            super(message);
+            this.name = "OutOfTurnError";
+        }
+    }
+
+    export class InvalidParametersError extends Error {
+        constructor(message:string) {
+            super(message);
+            this.name = "InvalidParametersError";
+        }
     }
 }
