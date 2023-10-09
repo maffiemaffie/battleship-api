@@ -132,6 +132,10 @@ export class BattleshipGame {
         };
     }
 
+    getData(player:BattleshipGame.Player) {
+        return this.data[player];
+    }
+
     static emptyBoard = new Array(10).fill(new Array(10).fill(false));
     static battleshipsTemplate = [
         new Array<Battleship>(5),
