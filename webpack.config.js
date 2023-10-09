@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: './src/server.js',
+  target: 'node',
   module: {
     rules: [
       {
@@ -13,6 +14,12 @@ module.exports = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
+    fallback: {
+      "buffer": require.resolve('buffer'),
+      "http": require.resolve("stream-http"),
+      "url": require.resolve("url/"),
+      "querystring": require.resolve("querystring-es3"),
+    },
   },
   output: {
     filename: 'bundle.js',
