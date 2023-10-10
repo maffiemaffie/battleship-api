@@ -1,0 +1,7 @@
+#my-attacks > .hit {
+    color: blue;
+}
+
+#opponent-attacks > .hit {
+    color: red;
+}
