@@ -42,7 +42,7 @@ const respondWithoutContent = (request, response, code) => {
  */
 const getBoardTemplate = (request, response) => {
   const content = {
-    board: btsh.BattleshipGame.emptyBoard,
+    board: btsh.BattleshipGame.getEmptyBoard(),
   };
   return respond(request, response, content, 200);
 };
