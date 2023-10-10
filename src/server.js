@@ -11,6 +11,7 @@ const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
+    '/index.js': htmlHandler.getIndexJS,
     '/boardTemplate': jsonHandler.getBoardTemplate,
     '/battleshipTemplate': jsonHandler.getBattleshipTemplate,
     '/status': jsonHandler.getStatus,
