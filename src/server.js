@@ -38,15 +38,36 @@ const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
   const params = query.parse(parsedUrl.query);
 
-  if (!urlStruct[request.method]) {
-    return urlStruct.HEAD.notFound(request, response);
-  }
+  const body = [];
 
-  if (urlStruct[request.method][parsedUrl.pathname]) {
-    return urlStruct[request.method][parsedUrl.pathname](request, response, params);
-  }
+  request.on('error', (err) => {
+    console.dir(err);
+    response.statusCode = 400;
+    response.end();
+  });
 
-  return urlStruct[request.method].notFound(request, response);
+  request.on('data', (chunk) => {
+    body.push(chunk);
+  });
+
+  request.on('end', () => {
+    let bodyJson = {};
+
+    if (body.length !== 0) {
+      const bodyString = Buffer.concat(body).toString();
+      bodyJson = JSON.parse(bodyString);
+    }
+
+    if (!urlStruct[request.method]) {
+      return urlStruct.HEAD.notFound(request, response);
+    }
+
+    if (urlStruct[request.method][parsedUrl.pathname]) {
+      return urlStruct[request.method][parsedUrl.pathname](request, response, params, bodyJson);
+    }
+
+    return urlStruct[request.method].notFound(request, response);
+  });
 };
 
 http.createServer(onRequest).listen(port, () => {
