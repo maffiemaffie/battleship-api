@@ -47,7 +47,7 @@ export class BattleshipGame {
             throw new BattleshipGame.OutOfTurnError('Battleships cannot be placed at this time. No ships placed.');
         }
         
-        const newBoard = new Array(10).fill(new Array(10).fill(false));
+        const newBoard = BattleshipGame.getEmptyBoard();
         for (const ship of ships) {
             for (const cell of ship) {
                 // ship outside bounds
@@ -136,7 +136,17 @@ export class BattleshipGame {
         return this.data[player];
     }
 
-    static emptyBoard = new Array(10).fill(new Array(10).fill(false));
+    static getEmptyBoard() {
+        const board = [];
+        for (let row = 0; row < 10; row++) {
+            const nextRow = [];
+            for (let col = 0; col < 10; col++) {
+                nextRow.push(false);
+            }
+            board.push(nextRow);
+        }
+        return board;
+    }
     static battleshipsTemplate = [
         new Array<Battleship>(5),
         new Array<Battleship>(4),
