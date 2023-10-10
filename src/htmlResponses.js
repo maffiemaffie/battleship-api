@@ -30,7 +30,7 @@ const getIndexJS = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'application/js' });
   response.write(indexjs);
   response.end();
-}
+};
 
 module.exports = {
   getIndex,
