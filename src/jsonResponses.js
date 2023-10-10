@@ -363,10 +363,10 @@ const shootTarget = (request, response, { gameId, playerId }, { target }) => {
     };
     return respond(request, response, content, 400);
   }
-  if (target.x === undefined || target.y === undefined) {
+  if (target.row === undefined || target.column === undefined) {
     const content = {
       id: 'shootTargetInvalidParameters',
-      message: 'target must contain both an \'x\' and \'y\' value.',
+      message: 'target must contain both a \'row\' and \'row\' value.',
     };
     return respond(request, response, content, 400);
   }
