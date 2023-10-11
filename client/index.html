@@ -13,32 +13,40 @@
         <form id="create-game">
             <input type="submit" value="New Game"/>
         </form>
-        <p></p>
+        <p class="hidden sucess">Game created! Join using id: <span id="game-id-display"></span></p>
     </div>
-    <form id="join-game">
-        <input type="submit" value="Join Game"/>
-        <label for="game-id">game id:</label>
-        <input type="text" required/>
-    </form>
+    <div id="join-game-wrapper">
+        <form id="join-game">
+            <input type="submit" value="Join Game"/>
+            <label for="game-id">game id:</label>
+            <input type="text" name="gameId" required/>
+        </form>
+        <p class="hidden success">Game joined!</p>
+        <p id="game-not-found" class="hidden error">Couldn't find game</p>
+        <p id="game-full" class="hidden error">Game already full</p>
+    </div>
+    
+    <p id="you-won" class="hidden success">You won :)</p>
+    <p id="you-lost" class="hidden error">You lost :(</p>
     <form id="launch-attack">
-        <label for="x-coord">x:</label>
-        <input id="x-coord" type="text" required>
-        <label for="y-coord">y:</label>
-        <input id="y-coord" type="text" required>
+        <label for="row">x:</label>
+        <input id="row" type="text" name="row" required>
+        <label for="column">y:</label>
+        <input id="column" type="text" name="column" required>
         <input type="submit" value="attack!"/>
     </form>
     <section>
-        <h3>my attacks</h3>
+        <header>
+            <h3>my attacks</h3>
+        </header>
         <ul id="my-attacks">
-            <li class="hit">A4: hit</li>
-            <li>B4: miss</li>
         </ul>
     </section>
     <section>
-        <h3>opponent's attacks</h3>
+        <header>
+            <h3>opponent's attacks</h3>
+        </header>
         <ul id="opponent-attacks">
-            <li class="hit">A4: hit</li>
-            <li>B4: miss</li>
         </ul>
     </section>
 </body>

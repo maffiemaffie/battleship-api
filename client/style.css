@@ -5,3 +5,15 @@
 #opponent-attacks > .hit {
     color: red;
 }
+
+.hidden {
+    display: none;
+}
+
+.success {
+    color: green;
+}
+
+.error {
+    color: red;
+}
