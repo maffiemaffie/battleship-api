@@ -1,6 +1,6 @@
 # Battleship API
 
-## [Creating a new game](#creating-a-new-game)
+## Creating a new game
 `POST /new`  
 Creates a new game of battleship.
 
@@ -18,7 +18,7 @@ Creates a new game of battleship.
 |201|The game has successfully been created|
 
 
-## [Joining an existing game](#joining-an-existing-game)
+## Joining an existing game
 `POST /join`  
 Joins an existing game of battleship.
 
@@ -40,7 +40,7 @@ The id of the game to be joined.
 |403|The game is already full|
 |404|No game with matching ID found|
 
-## [Setting battleships and starting the game](#setting-battleships-and-starting-the-game)
+## Setting battleships and starting the game
 `POST /ready`  
 If game status is `pendingStart` (see [status](#get-the-game-status)), places the battleships on the board and readies the server to begin the game.
 
@@ -62,7 +62,7 @@ The starting configuration of battleships. [See `/battleshipTemplate`](#get-the-
 |404|Either the game or the player couldn't be found|
 |422|The battleship configuration was invalid (overlapping ships, ship not on grid)|
 
-## [Launching Attacks](#launching-attacks)
+## Launching Attacks
 `POST /shoot`  
 If it's the requesting player's turn, launches an attack at a specified target cell. Responds with the result of the attack.
 
@@ -100,14 +100,14 @@ The target column
 |404|Either the game or the player couldn't be found|
 |422|The target was invalid (target already attacked, target not on grid)|
 
-## [Get an empty board](#get-an-empty-board)
+## Get an empty board
 `GET /boardTemplate`  
 Returns a 10x10 2D array of `false`'s, representing the board with no battleships.
 
 ### Example Response (200)
 ```json
 {
-    "board": [...],
+    "board": ["..."],
 }
 ```
 
@@ -116,7 +116,7 @@ Returns a 10x10 2D array of `false`'s, representing the board with no battleship
 |-|-|
 |200|Success|
 
-## [Get the template for battleships](#get-the-template-for-battleships)
+## Get the template for battleships
 `Get /battleshipTemplate`  
 Returns an example of a valid battleship configuration (see [battleship configuration](#setting-battleships-and-starting-the-game)). Returned object contains a 5-grid-cell array, a 4-grid-cell array, two 3-grid-cell arrays, and a 2-grid-cell array.
 
@@ -144,7 +144,7 @@ Returns an example of a valid battleship configuration (see [battleship configur
 |-|-|
 |200|Success|
 
-## [Get the game status](#get-the-game-status)
+## Get the game status
 `GET /status`  
 Returns the current status of the game (`pendingStart`, `hostTurn`, `guestTurn`, `gameOver`).
 
@@ -165,7 +165,7 @@ The id of the active game.
 |200|Success|
 |404|No game with matching ID found|
 
-## [Get your game data](#get-your-game-data)
+## Get your game data
 `GET /data`  
 Returns all game data relevant to the requesting player.  
 Includes:
@@ -186,8 +186,8 @@ The id of the requesting player.
 ```json
 {
     "data": {
-        "ships": [...],
-        "board": [...],
+        "ships": ["..."],
+        "board": ["..."],
         "myGuesses": {
             "{\"row\":0,\"column\":1}": true,
             "{\"row\":0,\"column\":2}": true,
