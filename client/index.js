@@ -131,7 +131,6 @@ const launchAttack = async () => {
             const list = document.querySelector('#my-attacks');
             const li = document.createElement('li');
             let liText;
-            console.log(responseJson);
             if (responseJson.isHit) {
                 li.classList.add('hit');
                 liText = document.createTextNode(`${row}, ${column}: hit`);
@@ -149,7 +148,6 @@ const launchAttack = async () => {
             break;
         case 422:
             // tell the user they fucked up
-            console.log(responseJson.message);
         default:
             console.log(response.message);
     }
@@ -167,7 +165,6 @@ const checkForTurn = async () => {
     if (response.status === 200) {
         switch(responseJson.status) {
             case my.turnName:
-                logData();
                 enableForm(document.querySelector('#launch-attack'));
                 break;
             case 'gameOver':
@@ -175,7 +172,6 @@ const checkForTurn = async () => {
                 gameOver();
                 break;
             default: 
-                console.log('not my turn');
                 setTimeout(checkForTurn, 2000);
         }
     }
@@ -199,7 +195,6 @@ const ready = async () => {
         case 422:
             // complain about the battleships
             const responseJson = await response.json();
-            console.log(responseJson.message);
             break;
         default:
             console.log(response);
