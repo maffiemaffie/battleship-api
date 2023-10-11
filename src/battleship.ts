@@ -3,13 +3,13 @@ export class BattleshipGame {
         player1:{
             ships:Array<Battleship>,
             board:boolean[][],
-            guesses:Map<string, boolean>,
+            guesses:{[index: string]:boolean},
             sunkShips:Array<Battleship>,
         },
         player2:{
             ships:Array<Battleship>,
             board:boolean[][],
-            guesses:Map<string, boolean>,
+            guesses:{[index: string]:boolean},
             sunkShips:Array<Battleship>,
         },
     };
@@ -21,13 +21,13 @@ export class BattleshipGame {
             "player1":{
                 "ships":[],
                 "board":undefined,
-                "guesses":new Map<string, boolean>(),
+                "guesses":{},
                 "sunkShips":[],
             },
             "player2":{
                 "ships":[],
                 "board":undefined,
-                "guesses":new Map<string, boolean>(),
+                "guesses":{},
                 "sunkShips":[],
             },
         }
@@ -70,7 +70,12 @@ export class BattleshipGame {
         }
     }
 
-    shootTarget(player:BattleshipGame.Player, target:Cell):{'isHit':boolean,'sunkShips':Battleship|null} {
+    shootTarget(player:BattleshipGame.Player, {row, column}:{row:string,column:string}):{'isHit':boolean,'sunkShips':Battleship|null} {
+        const target:Cell = {
+            'row': Number.parseInt(row),
+            'column': Number.parseInt(column),
+        }
+
         // out of turn or before/after game has started.
         if (player === BattleshipGame.Player.Player1 && this.status !== BattleshipGame.Status.Player1Turn) {
             throw new BattleshipGame.OutOfTurnError(`Target cannot be attacked at this time. No action was performed.`);
@@ -84,7 +89,7 @@ export class BattleshipGame {
             throw new RangeError(`Target out of bounds. No action was performed.`);
         }
         // target already attempted.
-        if (this.data[player].guesses.has(JSON.stringify(target))) {
+        if (this.data[player].guesses[JSON.stringify(target)] !== undefined) {
             throw new Error(`Target already attacked. No action was performed.`);
         }
 
@@ -100,11 +105,11 @@ export class BattleshipGame {
                 // if the cell is our target
                 if (target.row == cell.row && target.column == cell.column) {
                     // log the guess
-                    this.data[player].guesses.set(JSON.stringify(target), true);
+                    this.data[player].guesses[JSON.stringify(target)] = true;
                     // check the ship to see if it's sunk
                     for (const cell of ship) {
                         // if a cell hasn't been hit, return out of the function
-                        if (!this.data[player].guesses.has(JSON.stringify(cell))) {
+                        if (this.data[player].guesses[JSON.stringify(cell)] === undefined) {
                             return {
                                 'isHit': true,
                                 'sunkShips': null,
@@ -125,7 +130,7 @@ export class BattleshipGame {
             }
         }
         // if no ship is hit by our target, log the guess and return
-        this.data[player].guesses.set(JSON.stringify(target), false);
+        this.data[player].guesses[JSON.stringify(target)] = false;
         return {
             'isHit': false,
             'sunkShips': null,
