@@ -208,3 +208,25 @@ The id of the requesting player.
 |-|-|
 |204|The battleship configuration was accepted|
 |404|Either the game or the player couldn't be found|
+
+---
+
+## Project Questions
+
+### What is the intended purpose of your application?
+My application allows pairs of users to play multiplayer battleship online using their web browser.
+
+### What data will be stored and delivered by the API?
+The data for each game session of battleship will be stored by the API and delivered to the client to enable gameplay.
+
+### What work has been completed for this prototype?
+The game logic is fully functional. The API is nearly fully functional. The client interface is barely functional with severely throttled gameplay.
+
+### What work is left, and how do you plan to complete it?
+The client interface needs to be basically entirely built. I already have it designed, it just needs to be coded.
+
+### Do you have a plan for going above and beyond? If so, what is it?
+I don't know if typescript qualifies for that. That's not the reason I used it, but I did use it for the game logic so if that works then I plan to go above and beyond. If not, then I don't plan to go above and beyond.
+
+### If you used any borrowed code or code fragments, where did you get them from?
+I used the webpack and typescript documentation to help configure my webpack settings. Those came from their respective documentation pages and are contained in my [webpack.config.js](../webpack.config.js) and [tsconfig.json](../tsconfig.json) files, respectively.
