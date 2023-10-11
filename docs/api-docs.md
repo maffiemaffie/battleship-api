@@ -155,7 +155,7 @@ The id of the active game.
 ### Example Response (200)
 ```json
 {
-    "status"; "pendingStart",
+    "status": "pendingStart",
 }
 ```
 
