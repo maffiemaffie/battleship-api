@@ -4,6 +4,9 @@ const btsh = require('./battleship.ts');
 const games = {};
 const players = {};
 
+// list of ids
+const openGames = {};
+
 const createNewId = () => {
   const dateString = Date.now().toString().substring(7);
   const randomString = Math.trunc(Math.random() * 1000).toString();
@@ -218,6 +221,7 @@ const createGame = (request, response) => {
 
   games[gameId] = new btsh.BattleshipGame();
   players[playerId] = btsh.BattleshipGame.Player.Player1;
+  openGames[gameId] = true;
 
   const content = {
     gameId,
@@ -250,9 +254,20 @@ const joinGame = (request, response, { gameId }) => {
     };
     return respond(request, response, content, 404);
   }
+
+  // game full - 403
+  if (!openGames[gameId]) {
+    const content = {
+      id: 'joinGameForbidden',
+      message: 'This game is already full.',
+    };
+    return respond(request, response, content, 403);
+  }
+
   // game found - 200
   const playerId = createNewId();
   players[playerId] = btsh.BattleshipGame.Player.Player2;
+  delete openGames[gameId];
 
   const content = {
     playerId,
