@@ -98,7 +98,7 @@ export class BattleshipGame {
             // for each cell the ship occupies
             for (const cell of ship) {
                 // if the cell is our target
-                if (target.row === cell.row && target.column === cell.column) {
+                if (target.row == cell.row && target.column == cell.column) {
                     // log the guess
                     this.data[player].guesses.set(JSON.stringify(target), true);
                     // check the ship to see if it's sunk
@@ -133,7 +133,18 @@ export class BattleshipGame {
     }
 
     getData(player:BattleshipGame.Player) {
-        return this.data[player];
+        const other = player === BattleshipGame.Player.Player1 ? BattleshipGame.Player.Player2 : BattleshipGame.Player.Player1;
+
+        const data = {
+            ships: this.data[player].ships,
+            board: this.data[player].board,
+            myGuesses: this.data[player].guesses,
+            opponentGuesses: this.data[other].guesses,
+            shipsIveLost: this.data[other].sunkShips,
+            shipsIveSunk: this.data[player].sunkShips,
+        };
+
+        return data;
     }
 
     static getEmptyBoard() {
