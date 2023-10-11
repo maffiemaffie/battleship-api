@@ -117,7 +117,7 @@ Returns a 10x10 2D array of `false`'s, representing the board with no battleship
 |200|Success|
 
 ## Get the template for battleships
-`Get /battleshipTemplate`  
+`GET /battleshipTemplate`  
 Returns an example of a valid battleship configuration (see [battleship configuration](#setting-battleships-and-starting-the-game)). Returned object contains a 5-grid-cell array, a 4-grid-cell array, two 3-grid-cell arrays, and a 2-grid-cell array.
 
 ### Example Response (200)
