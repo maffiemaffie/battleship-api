@@ -19,12 +19,8 @@
     grid-template-columns: repeat(10, min-content);
 }
 
-#game-board.placing-ships .cell:hover:not([disabled]) {
+#game-board .cell:hover:not([disabled]) {
     background-color: darkblue;
-}
-
-#game-board .placing-attack {
-
 }
 
 #grid .cell {
