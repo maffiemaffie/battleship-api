@@ -16,18 +16,45 @@ const currentConfig = Object.seal({
     "destroyer": [],
 });
 
+/**
+ * Disable grid to user input.
+ */
 const disableGrid = () => {
     for (const cell of document.querySelectorAll('#grid input')) {
         cell.setAttribute('disabled', '');
     }
 }
 
+/**
+ * Enable grid to user input.
+ */
 const enableGrid = () => {
     for (const cell of document.querySelectorAll('#grid input')) {
         cell.removeAttribute('disabled');
     }
 }
 
+/**
+ * Enable submit if all ships are placed.
+ */
+const maybeEnableSubmit = () => {
+    for (const ship of Object.values(currentConfig)) {
+        if (ship.length === 0) return;
+    }
+
+    document.querySelector('#game-board [type="submit"]').removeAttribute('disabled');
+}
+
+/**
+ * Takes in two cells and returns all cells in the straight line path between them.
+ * @param {Object} firstCell - The first cell.
+ * @param {number} firstCell.firstCellRow - The row of the first cell.
+ * @param {number} firstCell.firstCellColumn - The column of the first cell.
+ * @param {Object} lastCell - The last cell.
+ * @param {number} lastCell.lastCellRow - The row of the last cell.
+ * @param {number} lastCell.lastCellColumn - The column of the last cell.
+ * @returns {Array<{row:number,column:number}>} All cells in the path including the start and end.
+ */
 const getCellPath = ({firstCellRow, firstCellColumn}, {lastCellRow, lastCellColumn}) => {
     const path = [];
 
@@ -67,12 +94,21 @@ const getCellPath = ({firstCellRow, firstCellColumn}, {lastCellRow, lastCellColu
     return path;
 }
 
+/**
+ * Returns a specified grid cell as an HTML element.
+ * @param {number} row - the row of the cell.
+ * @param {number} column - the column of the cell.
+ * @returns {HTMLInputElement} the HTML element for the corresponding grid cell.
+ */
 const getCell = (row, column) => {
     const rowSelector = `[data-row="${row}"]`;
     const columnSelector = `[data-column="${column}"]`;
     return document.querySelector(`#grid .cell${rowSelector}${columnSelector}`);
 }
 
+/**
+ * Updates the display of the grid.
+ */
 const updateBoard = () => {
     for (let row = 0; row < 10; row++) {
         for (let column = 0; column < 10; column++) {
@@ -89,6 +125,10 @@ const updateBoard = () => {
     }
 }
 
+/**
+ * Places the start of the battleship.
+ * @param {PointerEvent} e - The click event. 
+ */
 const placeFirstCell = (e) => {
     e.target.classList.add('selected');
     const row = Number.parseInt(e.target.dataset.row);
@@ -130,8 +170,13 @@ const placeFirstCell = (e) => {
     }
 
     currentState = "placingSecond";
+    document.querySelector('#reset-ship').removeAttribute('disabled');
 }
 
+/**
+ * Places the end of the battleship.
+ * @param {PointerEvent} e - The click event.
+ */
 const placeSecondCell = (e) => {
     const firstCellRow = Number.parseInt(e.target.dataset.row);
     const firstCellColumn = Number.parseInt(e.target.dataset.column);
@@ -148,8 +193,13 @@ const placeSecondCell = (e) => {
 
     updateBoard();
     disableGrid();
+    maybeEnableSubmit();
 }
 
+/**
+ * Chooses which method to handle the function based on the game status.
+ * @param {PointerEvent} e - The click event.
+ */
 const cellClicked = (e) => {
     switch (currentState) {
         case "placingFirst":
@@ -163,7 +213,13 @@ const cellClicked = (e) => {
     }
 }
 
+/**
+ * Called when a battleship is clicked on.
+ */
 const battleshipSelected = () => {
+    document.querySelector('#game-board [type="submit"]').setAttribute('disabled', '');
+    document.querySelector('#reset-ship').setAttribute('disabled', '');
+
     const selected = document.querySelector('input[name="battleship"]:checked').value;
     currentConfig[selected] = [];
     updateBoard();
@@ -176,7 +232,10 @@ const battleshipSelected = () => {
     currentState = "placingFirst";
 }
 
-export const initGameBoard = () => {
+/**
+ * Creates the grid and assigns event handlers.
+ */
+const initGameBoard = () => {
     currentState = "noSelect";
     const grid = document.querySelector('#grid');
     
@@ -194,6 +253,8 @@ export const initGameBoard = () => {
 
     document.querySelector('#game-board').classList.remove('hidden');
     document.querySelector('#game-board').classList.add('placing-ships');
+    document.querySelector('#game-board [type="submit"]').setAttribute('disabled', '');
+    document.querySelector('#reset-ship').setAttribute('disabled', '');
 
     for (const cell of document.querySelectorAll('#grid input')) {
         cell.addEventListener('click', cellClicked);
@@ -202,4 +263,11 @@ export const initGameBoard = () => {
     for (const radio of document.querySelectorAll('#battleship-select input')) {
         radio.addEventListener('change', battleshipSelected);
     }
+
+    document.querySelector('#reset-ship').addEventListener('click', battleshipSelected);
 }
+
+export {
+    currentConfig,
+    initGameBoard
+};

@@ -1,4 +1,4 @@
-import { initGameBoard } from "./configure-battleships.js";
+import { initGameBoard, currentConfig } from "./configure-battleships.js";
 
 const my = {
     'gameId': "",
@@ -89,6 +89,9 @@ const sendFetchRequest = async (url, method, params, body) => {
     return await fetch(url + queryString, options);
 }
 
+/**
+ * Logs all player data to the console
+ */
 const logData = async () => {
     const query = {'gameId':my.gameId, 'playerId':my.playerId};
 
@@ -97,6 +100,9 @@ const logData = async () => {
     console.log(responseJson);
 }
 
+/**
+ * Checks who won and displays the appropriate text
+ */
 const gameOver = async () => {
     const query = {'gameId':my.gameId, 'playerId':my.playerId};
 
@@ -115,11 +121,14 @@ const gameOver = async () => {
     }
 }
 
+/**
+ * Launches an attack on an opponent's board. Displays the result back to the player.
+ */
 const launchAttack = async () => {
     const form = document.querySelector('#launch-attack');
     const formData = new FormData(form);
-    const row = formData.get('row');
-    const column = formData.get('column');
+    const row = Number.parseInt(formData.get('row'));
+    const column = Number.parseInt(formData.get('column'));
 
     const query = {'gameId':my.gameId, 'playerId':my.playerId};
     const body = { 'target': {row, column} };
@@ -156,6 +165,36 @@ const launchAttack = async () => {
 }
 
 /**
+ * Updates the list of opponent attacks.
+ */
+const updateOpponentAttacks = async() => {
+    const response = await sendFetchRequest('/data', 'GET', {'gameId': my.gameId, 'playerId':my.playerId});
+    const responseJson = await response.json();
+
+    if (response.status === 200) {
+        for (const li of document.querySelectorAll('#opponent-attacks li')) li.remove();
+
+        const list = document.querySelector('#opponent-attacks');
+        for (const [attackedCell, result] of Object.entries(responseJson.data.opponentGuesses)) {
+            const {row, column} = JSON.parse(attackedCell);
+    
+            // update list
+            const li = document.createElement('li');
+            let liText;
+            if (result) {
+                li.classList.add('hit');
+                liText = document.createTextNode(`${row}, ${column}: hit`);
+            } else {
+                liText = document.createTextNode(`${row}, ${column}: miss`);
+            }
+    
+            li.appendChild(liText);
+            list.insertAdjacentElement('beforeend', li);
+        }
+    }
+}
+
+/**
  * Check if it's this player's turn.
  * If it is, enables the attack form.
  * Otherwise, waits and then pings the server again.
@@ -168,6 +207,7 @@ const checkForTurn = async () => {
         switch(responseJson.status) {
             case my.turnName:
                 enableForm(document.querySelector('#launch-attack'));
+                updateOpponentAttacks();
                 break;
             case 'gameOver':
                 // do game over stuff
@@ -185,7 +225,7 @@ const checkForTurn = async () => {
  * Otherwise, tell the player and wait for a new config to be submitted.
  */
 const ready = async () => {
-    const battleships = hardcodedShips;
+    const battleships = Object.values(currentConfig);
 
     const response = await sendFetchRequest('/ready', 'POST', {'gameId': my.gameId, 'playerId': my.playerId}, {battleships});
 
@@ -220,7 +260,6 @@ const createGame = async () => {
         my.playerId = responseJson.playerId;
         my.turnName = 'hostTurn';
 
-        //delete this after battleship setup is implemented
         initGameBoard();
         return;
     }
@@ -248,7 +287,6 @@ const joinGame = async () => {
             my.playerId = responseJson.playerId;
             my.turnName = 'guestTurn'
 
-            //delete this after battleship setup is implemented
             initGameBoard();
             break;
         case 403:
@@ -280,8 +318,18 @@ const init = () => {
         return false;
     });
 
+    disableForm(document.querySelector('#launch-attack'));
     document.querySelector('#launch-attack').addEventListener('submit', e => {
         launchAttack();
+
+        e.preventDefault();
+        return false;
+    });
+
+    document.querySelector('#game-board').addEventListener('submit', e => {
+        ready();
+
+        disableForm(e.target);
 
         e.preventDefault();
         return false;
