@@ -1,9 +1,19 @@
 const fs = require('fs');
 
-const index = fs.readFileSync(`${__dirname}/../client/index.html`);
-const css = fs.readFileSync(`${__dirname}/../client/style.css`);
-const indexjs = fs.readFileSync(`${__dirname}/../client/index.js`);
-const configureBattleshipsJS = fs.readFileSync(`${__dirname}/../client/configure-battleships.js`);
+/**
+ * Gets a requested file.
+ * @param {http.IncomingMessage} request
+ * @param {http.ServerResponse} response 
+ * @param {string} filepath - Path to the requested file.
+ * @param {string} contentType - MIME content type of the requested file.
+ */
+const sendFile = (request, response, filepath, contentType) => {
+  const file = fs.readFileSync(filepath);
+  
+  response.writeHead(200, { 'Content-Type': contentType });
+  response.write(file);
+  response.end();
+};
 
 /**
  * Gets the index html page.
@@ -11,9 +21,7 @@ const configureBattleshipsJS = fs.readFileSync(`${__dirname}/../client/configure
  * @param {http.ServerResponse} response
  */
 const getIndex = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/html' });
-  response.write(index);
-  response.end();
+  return sendFile(request, response, `${__dirname}/../client/index.html`, 'text/html')
 };
 
 /**
@@ -22,26 +30,25 @@ const getIndex = (request, response) => {
  * @param {http.ServerResponse} response
  */
 const getCSS = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/css' });
-  response.write(css);
-  response.end();
+  return sendFile(request, response, `${__dirname}/../client/style.css`, 'text/css')
 };
 
 const getIndexJS = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/javascript' });
-  response.write(indexjs);
-  response.end();
+  return sendFile(request, response, `${__dirname}/../client/index.js`, 'text/javascript');
 };
 
 const getConfigureBattleshipsJS = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'text/javascript' });
-  response.write(configureBattleshipsJS);
-  response.end();
+  return sendFile(request, response, `${__dirname}/../client/configure-battleships.js`, 'text/javascript');
 };
+
+const getLaunchAttackJS = (request, response) => {
+  return sendFile(request, response, `${__dirname}/../client/launch-attack.js`, 'text/javascript');
+}
 
 module.exports = {
   getIndex,
   getCSS,
   getIndexJS,
   getConfigureBattleshipsJS,
+  getLaunchAttackJS,
 };
