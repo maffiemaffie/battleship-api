@@ -12,6 +12,7 @@ const urlStruct = {
     '/': htmlHandler.getIndex,
     '/style.css': htmlHandler.getCSS,
     '/index.js': htmlHandler.getIndexJS,
+    '/configure-battleships.js': htmlHandler.getConfigureBattleshipsJS,
     '/boardTemplate': jsonHandler.getBoardTemplate,
     '/battleshipTemplate': jsonHandler.getBattleshipTemplate,
     '/status': jsonHandler.getStatus,

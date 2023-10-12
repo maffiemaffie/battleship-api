@@ -3,6 +3,7 @@ const fs = require('fs');
 const index = fs.readFileSync(`${__dirname}/../client/index.html`);
 const css = fs.readFileSync(`${__dirname}/../client/style.css`);
 const indexjs = fs.readFileSync(`${__dirname}/../client/index.js`);
+const configureBattleshipsJS = fs.readFileSync(`${__dirname}/../client/configure-battleships.js`);
 
 /**
  * Gets the index html page.
@@ -27,8 +28,14 @@ const getCSS = (request, response) => {
 };
 
 const getIndexJS = (request, response) => {
-  response.writeHead(200, { 'Content-Type': 'application/js' });
+  response.writeHead(200, { 'Content-Type': 'text/javascript' });
   response.write(indexjs);
+  response.end();
+};
+
+const getConfigureBattleshipsJS = (request, response) => {
+  response.writeHead(200, { 'Content-Type': 'text/javascript' });
+  response.write(configureBattleshipsJS);
   response.end();
 };
 
@@ -36,4 +43,5 @@ module.exports = {
   getIndex,
   getCSS,
   getIndexJS,
+  getConfigureBattleshipsJS,
 };
