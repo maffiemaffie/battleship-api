@@ -1,3 +1,5 @@
+import { initGameBoard } from "./configure-battleships.js";
+
 const my = {
     'gameId': "",
     'playerId':"",
@@ -219,7 +221,7 @@ const createGame = async () => {
         my.turnName = 'hostTurn';
 
         //delete this after battleship setup is implemented
-        ready();
+        initGameBoard();
         return;
     }
     alert(`Game couldn't be created (status ${response.status})`);
@@ -247,7 +249,7 @@ const joinGame = async () => {
             my.turnName = 'guestTurn'
 
             //delete this after battleship setup is implemented
-            ready();
+            initGameBoard();
             break;
         case 403:
             document.querySelector('#game-full').classList.remove('hidden');
@@ -284,7 +286,6 @@ const init = () => {
         e.preventDefault();
         return false;
     });
-
 }
 
-window.onload = init;
+init();

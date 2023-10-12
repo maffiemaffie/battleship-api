@@ -6,14 +6,60 @@
     color: red;
 }
 
-.hidden {
-    display: none;
-}
-
 .success {
     color: green;
 }
 
 .error {
     color: red;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(10, min-content);
+}
+
+#game-board.placing-ships .cell:hover:not([disabled]) {
+    background-color: darkblue;
+}
+
+#game-board .placing-attack {
+
+}
+
+#grid .cell {
+    width: 20px;
+    height: 20px;
+}
+
+.cell {
+    background-color: lightgrey;
+}
+
+.cell.selected {
+    background-color: grey;
+}
+
+.cell.selectable {
+    background-color: blue;
+}
+
+.cell.disabled {
+    
+}
+
+.cell.occupied {
+    background-color: grey;
+}
+
+.cell.hit {
+    
+}
+
+.cell.miss {
+    
+}
+
+.hidden {
+    display: none!important;
 }

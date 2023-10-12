@@ -6,7 +6,7 @@
     <title>Battleship</title>
 
     <link rel="stylesheet" href="style.css">
-    <script src="index.js"></script>
+    <script src="index.js" type="module"></script>
 </head>
 <body>
     <div id="create-game-wrapper">
@@ -34,6 +34,23 @@
         <label for="column">y:</label>
         <input id="column" type="text" name="column" required>
         <input type="submit" value="attack!"/>
+    </form>
+    <form id="game-board" class="hidden">
+        <fieldset id="battleship-select">
+            <input type="radio" id="carrier-option" name="battleship" value="carrier">
+            <label for="carrier-option">Carrier (5)</label>
+            <input type="radio" id="battleship-option" name="battleship" value="battleship">
+            <label for="battleship-option">Battleship (4)</label>
+            <input type="radio" id="cruiser-option" name="battleship" value="cruiser">
+            <label for="cruiser-option">Cruiser (3)</label>
+            <input type="radio" id="submarine-option" name="battleship" value="submarine">
+            <label for="submarine-option">Submarine (3)</label>
+            <input type="radio" id="destroyer-option" name="battleship" value="destroyer">
+            <label for="destroyer-option">Destroyer (2)</label>
+        </fieldset>
+        <input type="button" value="Reset Ship"/>
+        <fieldset id="grid"></fieldset>
+        <input type="submit" value="Confirm Battleships"/>
     </form>
     <section>
         <header>
