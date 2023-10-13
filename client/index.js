@@ -1,4 +1,5 @@
-import { initGameBoard, currentConfig } from "./configure-battleships.js";
+import { initGameBoard, currentConfig, getCell } from "./configure-battleships.js";
+import { activeCell, setCell, initAttackBoard, resetActive, disableTargetGrid, enableTargetGrid } from "./launch-attack.js";
 
 const my = {
     'gameId': "",
@@ -126,12 +127,12 @@ const gameOver = async () => {
  */
 const launchAttack = async () => {
     const form = document.querySelector('#launch-attack');
-    const formData = new FormData(form);
-    const row = Number.parseInt(formData.get('row'));
-    const column = Number.parseInt(formData.get('column'));
 
-    const query = {'gameId':my.gameId, 'playerId':my.playerId};
-    const body = { 'target': {row, column} };
+    const row = activeCell.row;
+    const column = activeCell.column;
+
+    const query = { 'gameId':my.gameId, 'playerId':my.playerId };
+    const body = { 'target': activeCell };
 
     const response = await sendFetchRequest('/shoot', 'POST', query, body);
     const responseJson = await response.json();
@@ -148,6 +149,9 @@ const launchAttack = async () => {
             } else {
                 liText = document.createTextNode(`${row}, ${column}: miss`);
             }
+            resetActive();
+            disableTargetGrid();
+            setCell(row, column, responseJson.isHit);
 
             li.appendChild(liText);
             list.insertAdjacentElement('beforeend', li);
@@ -184,8 +188,12 @@ const updateOpponentAttacks = async() => {
             if (result) {
                 li.classList.add('hit');
                 liText = document.createTextNode(`${row}, ${column}: hit`);
+                getCell(row, column).classList.add('hit');
+                getCell(row, column).value = '💥';
             } else {
                 liText = document.createTextNode(`${row}, ${column}: miss`);
+                getCell(row, column).classList.add('miss');
+                getCell(row, column).value = '❌';
             }
     
             li.appendChild(liText);
@@ -206,8 +214,9 @@ const checkForTurn = async () => {
     if (response.status === 200) {
         switch(responseJson.status) {
             case my.turnName:
-                enableForm(document.querySelector('#launch-attack'));
+                enableTargetGrid();
                 updateOpponentAttacks();
+                document.querySelector('#attack-board').classList.remove('hidden');
                 break;
             case 'gameOver':
                 // do game over stuff
@@ -319,7 +328,8 @@ const init = () => {
     });
 
     disableForm(document.querySelector('#launch-attack'));
-    document.querySelector('#launch-attack').addEventListener('submit', e => {
+    // document.querySelector('#launch-attack').addEventListener('submit', e => {
+    document.querySelector('#attack-board').addEventListener('submit', e => {
         launchAttack();
 
         e.preventDefault();
@@ -334,6 +344,8 @@ const init = () => {
         e.preventDefault();
         return false;
     });
+
+    initAttackBoard();
 }
 
 init();

@@ -14,22 +14,27 @@
     color: red;
 }
 
-#grid {
+#grid, #attack-grid {
     display: grid;
     grid-template-columns: repeat(10, min-content);
 }
 
-#game-board .cell:hover:not([disabled]) {
+.cell:hover:not([disabled]) {
     background-color: darkblue;
 }
 
-#grid .cell {
+.cell {
     width: 20px;
     height: 20px;
-}
-
-.cell {
     background-color: lightgrey;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    line-height: 20px;
+    font-size: 25px;
+    font-weight: bold;
 }
 
 .cell.selected {
@@ -40,20 +45,19 @@
     background-color: blue;
 }
 
-.cell.disabled {
-    
-}
-
-.cell.occupied {
+.cell.occupied,
+.cell.hit {
     background-color: grey;
 }
 
-.cell.hit {
-    
+.cell.hit,
+.cell.miss {
+    color: black;
 }
 
-.cell.miss {
-    
+.cell.attack {
+    background-color: red;
+    color: white;
 }
 
 .hidden {

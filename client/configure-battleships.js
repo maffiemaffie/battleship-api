@@ -240,13 +240,13 @@ const initGameBoard = () => {
     const grid = document.querySelector('#grid');
     
     for (let row = 0; row < 10; row++) {
-        for (let col = 0; col < 10; col++) {
+        for (let column = 0; column < 10; column++) {
             const button = document.createElement('input');
             button.setAttribute('type', 'button');
             button.setAttribute('disabled', "");
             button.classList.add('cell');   
             button.dataset.row = row;
-            button.dataset.column = col;
+            button.dataset.column = column;
             grid.insertAdjacentElement('beforeend', button);
         }
     }
@@ -268,5 +268,6 @@ const initGameBoard = () => {
 
 export {
     currentConfig,
-    initGameBoard
+    initGameBoard,
+    getCell,
 };
