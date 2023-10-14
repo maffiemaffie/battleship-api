@@ -17,6 +17,7 @@
 #grid, #attack-grid {
     display: grid;
     grid-template-columns: repeat(10, min-content);
+    width: fit-content;
 }
 
 .cell:hover:not([disabled]) {
@@ -24,16 +25,16 @@
 }
 
 .cell {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
     background-color: lightgrey;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 0;
-    line-height: 20px;
-    font-size: 25px;
+    line-height: 30px;
+    font-size: 30px;
     font-weight: bold;
 }
 
@@ -62,4 +63,40 @@
 
 .hidden {
     display: none!important;
+}
+
+#battleship-select {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 200px;
+}
+
+#battleship-select input {
+    display: none;
+}
+
+#battleship-select label {
+    display: block;
+    background-color: white;
+    padding: 0.5em;
+    outline: solid 1px black;
+}
+
+#battleship-select div:has(:checked) label {
+    background-color: lightgrey;
+}
+
+#battleship-select div:has(.placed) label::after {
+    content: '\2713';
+    color: green;
+}
+
+#game-board {
+    display: flex;
+    flex-flow: row wrap
+}
+
+#grid-layout {
+    display: flex;
+    flex-flow: row wrap;
 }

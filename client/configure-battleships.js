@@ -185,11 +185,14 @@ const placeSecondCell = (e) => {
     const lastCellRow = Number.parseInt(lastCell.dataset.row);
     const lastCellColumn = Number.parseInt(lastCell.dataset.column);
 
-    const selectedShip = document.querySelector('input[name="battleship"]:checked').value;
+    const inputElem = document.querySelector('input[name="battleship"]:checked');
+    const selectedShip = inputElem.value;
     currentState = "noSelect";
 
     const path = getCellPath({ firstCellRow, firstCellColumn }, { lastCellRow, lastCellColumn });
     currentConfig[selectedShip] = path;
+
+    inputElem.classList.add('placed');
 
     updateBoard();
     disableGrid();
@@ -220,7 +223,9 @@ const battleshipSelected = () => {
     document.querySelector('#game-board [type="submit"]').setAttribute('disabled', '');
     document.querySelector('#reset-ship').setAttribute('disabled', '');
 
-    const selected = document.querySelector('input[name="battleship"]:checked').value;
+    const inputElem = document.querySelector('input[name="battleship"]:checked');
+    const selected = inputElem.value;
+    inputElem.classList.remove('placed');
     currentConfig[selected] = [];
     updateBoard();
     enableGrid();

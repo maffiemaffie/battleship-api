@@ -126,7 +126,7 @@ const gameOver = async () => {
  * Launches an attack on an opponent's board. Displays the result back to the player.
  */
 const launchAttack = async () => {
-    const form = document.querySelector('#launch-attack');
+    // const form = document.querySelector('#launch-attack');
 
     const row = activeCell.row;
     const column = activeCell.column;
@@ -158,7 +158,7 @@ const launchAttack = async () => {
 
             // update board
             // disable attack
-            disableForm(form);
+            // disableForm(form);
             checkForTurn();
             break;
         case 422:
@@ -241,6 +241,8 @@ const ready = async () => {
     switch (response.status) {
         case 204:
             // disable battleship entry
+            document.querySelector('#battleship-select').classList.add('hidden');
+            document.querySelector('#reset-ship').classList.add('hidden');
             checkForTurn();
             break;
         case 422:
@@ -327,7 +329,7 @@ const init = () => {
         return false;
     });
 
-    disableForm(document.querySelector('#launch-attack'));
+    // disableForm(document.querySelector('#launch-attack'));
     // document.querySelector('#launch-attack').addEventListener('submit', e => {
     document.querySelector('#attack-board').addEventListener('submit', e => {
         launchAttack();
