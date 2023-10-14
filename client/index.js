@@ -7,6 +7,12 @@ const my = {
     'turnName': "",
 }
 
+const parseRowColumn = (row, column) => {
+    const letters = Object.freeze(['A','B','C','D','E','F','G','H','I','J']);
+
+    return letters[row] + (column + 1);
+}
+
 const hardcodedShips = [ // for testing
     [
         { row: 0, column: 0 },
@@ -128,8 +134,8 @@ const gameOver = async () => {
 const launchAttack = async () => {
     // const form = document.querySelector('#launch-attack');
 
-    const row = activeCell.row;
-    const column = activeCell.column;
+    const row = Number.parseInt(activeCell.row);
+    const column = Number.parseInt(activeCell.column);
 
     const query = { 'gameId':my.gameId, 'playerId':my.playerId };
     const body = { 'target': activeCell };
@@ -145,9 +151,9 @@ const launchAttack = async () => {
             let liText;
             if (responseJson.isHit) {
                 li.classList.add('hit');
-                liText = document.createTextNode(`${row}, ${column}: hit`);
+                liText = document.createTextNode(`${parseRowColumn(row, column)}: hit`);
             } else {
-                liText = document.createTextNode(`${row}, ${column}: miss`);
+                liText = document.createTextNode(`${parseRowColumn(row, column)}: miss`);
             }
             resetActive();
             disableTargetGrid();
@@ -155,6 +161,7 @@ const launchAttack = async () => {
 
             li.appendChild(liText);
             list.insertAdjacentElement('beforeend', li);
+            list.scrollTop = list.scrollHeight;
 
             // update board
             // disable attack
@@ -187,17 +194,18 @@ const updateOpponentAttacks = async() => {
             let liText;
             if (result) {
                 li.classList.add('hit');
-                liText = document.createTextNode(`${row}, ${column}: hit`);
+                liText = document.createTextNode(`${parseRowColumn(row, column)}: hit`);
                 getCell(row, column).classList.add('hit');
                 getCell(row, column).value = '💥';
             } else {
-                liText = document.createTextNode(`${row}, ${column}: miss`);
+                liText = document.createTextNode(`${parseRowColumn(row, column)}: miss`);
                 getCell(row, column).classList.add('miss');
                 getCell(row, column).value = '❌';
             }
     
             li.appendChild(liText);
             list.insertAdjacentElement('beforeend', li);
+            list.scrollTop = list.scrollHeight;
         }
     }
 }
@@ -217,6 +225,8 @@ const checkForTurn = async () => {
                 enableTargetGrid();
                 updateOpponentAttacks();
                 document.querySelector('#attack-board-container').classList.remove('hidden');
+                document.querySelector('#my-attacks-container').classList.remove('hidden');
+                document.querySelector('#opponent-attacks-container').classList.remove('hidden');
                 break;
             case 'gameOver':
                 // do game over stuff
