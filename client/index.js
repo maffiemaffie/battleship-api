@@ -216,7 +216,7 @@ const checkForTurn = async () => {
             case my.turnName:
                 enableTargetGrid();
                 updateOpponentAttacks();
-                document.querySelector('#attack-board').classList.remove('hidden');
+                document.querySelector('#attack-board-container').classList.remove('hidden');
                 break;
             case 'gameOver':
                 // do game over stuff

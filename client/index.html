@@ -36,41 +36,51 @@
         <input type="submit" value="attack!">
     </form> -->
     <div id="grid-layout">
-        <form id="game-board" class="hidden">
-            <div>
-                <fieldset id="battleship-select">
-                    <div>
-                        <input type="radio" id="carrier-option" name="battleship" value="carrier">
-                        <label for="carrier-option">Carrier (5)</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="battleship-option" name="battleship" value="battleship">
-                        <label for="battleship-option">Battleship (4)</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="cruiser-option" name="battleship" value="cruiser">
-                        <label for="cruiser-option">Cruiser (3)</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="submarine-option" name="battleship" value="submarine">
-                        <label for="submarine-option">Submarine (3)</label>
-                    </div>
-                    <div>
-                        <input type="radio" id="destroyer-option" name="battleship" value="destroyer">
-                        <label for="destroyer-option">Destroyer (2)</label>
-                    </div>
-                </fieldset>
-                <input id="reset-ship" type="button" value="Reset Ship">
-            </div>
-            <div>
-                <fieldset id="grid"></fieldset>
-                <input type="submit" value="Confirm Battleships">
-            </div>
-        </form>
-        <form id="attack-board" class="hidden">
-            <fieldset id="attack-grid"></fieldset>
-            <input type="submit" value="Launch Attack!">
-        </form>
+        <section id="game-board-container" class="hidden">
+            <header>
+                <h2>My Ships</h2>
+            </header>
+            <form id="game-board">
+                <div>
+                    <fieldset id="battleship-select">
+                        <div>
+                            <input type="radio" id="carrier-option" name="battleship" value="carrier">
+                            <label for="carrier-option">Carrier (5)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="battleship-option" name="battleship" value="battleship">
+                            <label for="battleship-option">Battleship (4)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="cruiser-option" name="battleship" value="cruiser">
+                            <label for="cruiser-option">Cruiser (3)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="submarine-option" name="battleship" value="submarine">
+                            <label for="submarine-option">Submarine (3)</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="destroyer-option" name="battleship" value="destroyer">
+                            <label for="destroyer-option">Destroyer (2)</label>
+                        </div>
+                    </fieldset>
+                    <input id="reset-ship" type="button" value="Reset Ship">
+                </div>
+                <div>
+                    <fieldset id="grid"></fieldset>
+                    <input type="submit" value="Confirm Battleships">
+                </div>
+            </form>
+        </section>
+        <section id="attack-board-container" class="hidden">
+            <header>
+                <h2>Coordinate an Attack</h2>
+            </header>
+            <form id="attack-board">
+                <fieldset id="attack-grid"></fieldset>
+                <input type="submit" value="Launch Attack!">
+            </form>
+        </section>
     </div>
     <section>
         <header>

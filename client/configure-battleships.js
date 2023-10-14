@@ -256,7 +256,7 @@ const initGameBoard = () => {
         }
     }
 
-    document.querySelector('#game-board').classList.remove('hidden');
+    document.querySelector('#game-board-container').classList.remove('hidden');
     document.querySelector('#game-board [type="submit"]').setAttribute('disabled', '');
     document.querySelector('#reset-ship').setAttribute('disabled', '');
 
