@@ -1,5 +1,12 @@
-let currentState = "";
+/**
+ * The current state of configuration placement.
+ * @type {"noSelect"|"placingFirst"|"placingSecond"}
+ */
+let currentState = "noSelect";
 
+/**
+ * The length of each ship by name.
+ */
 const shipLengths = Object.freeze({
     "carrier": 5,
     "battleship": 4,
@@ -8,6 +15,10 @@ const shipLengths = Object.freeze({
     "destroyer": 2,
 });
 
+/**
+ * The current location of all batlleships placed on the configuration board.
+ * @type {{carrier:Array<{row:number,column:number}>,battleship:Array<{row:number,column:number}>,cruiser:Array<{row:number,column:number}>,submarine:Array<{row:number,column:number}>,destroyer:Array<{row:number,column:number}>}}
+ */
 const currentConfig = Object.seal({
     "carrier": [],
     "battleship": [],

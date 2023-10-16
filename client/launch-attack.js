@@ -1,3 +1,7 @@
+/**
+ * The current selected cell.
+ * @type {{row:number,column:number}|null}
+ */
 let activeCell = null;
 
 /**
@@ -12,6 +16,12 @@ const getCell = (row, column) => {
     return document.querySelector(`#attack-grid .cell${rowSelector}${columnSelector}`);
 }
 
+/**
+ * Sets the display of an attacked cell.
+ * @param {number} row - The row of the cell.
+ * @param {number} column - The column of the cell.
+ * @param {boolean} isHit - True if the cell has been hit.
+ */
 const setCell = (row, column, isHit) => {
     const cellElem = getCell(row, column);
     cellElem.setAttribute('disabled','');
@@ -32,6 +42,9 @@ const resetActive = () => {
     activeCell = null;
 }
 
+/**
+ * Disables every cell in the attack grid.
+ */
 const disableTargetGrid = () => {
     for (const input of document.querySelectorAll('#attack-grid input.cell')) {
         input.setAttribute('disabled', '');
@@ -39,6 +52,9 @@ const disableTargetGrid = () => {
     document.querySelector('#attack-board [type="submit"]').setAttribute('disabled', '');
 }
 
+/**
+ * Enables every cell in the attack grid.
+ */
 const enableTargetGrid = () => {
     for (const input of document.querySelectorAll('#attack-grid input.cell:not(.miss):not(.hit)')) {
         input.removeAttribute('disabled');
@@ -46,7 +62,7 @@ const enableTargetGrid = () => {
 }
 
 /**
- * 
+ * Changes the cell selection.
  * @param {PointerEvent} e - The click event.
  */
 const targetClicked = (e) => {
@@ -67,6 +83,9 @@ const targetClicked = (e) => {
     document.querySelector('#attack-board [type="submit"]').removeAttribute('disabled');
 }
 
+/**
+ * Builds the grid and initializes event handlers.
+ */
 const initAttackBoard = () => {
     const grid = document.querySelector('#attack-grid');
     

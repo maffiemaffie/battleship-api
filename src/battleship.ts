@@ -1,4 +1,7 @@
 export class BattleshipGame {
+    /**
+     * The full game data.
+     */
     private data: {
         player1:{
             ships:Array<Battleship>,
@@ -14,8 +17,15 @@ export class BattleshipGame {
         },
     };
 
+    /**
+     * The current game status.
+     */
     public status:BattleshipGame.Status;
 
+    /**
+     * Initializes a new instance of the {@link BattleshipGame} class.
+     * @constructor
+     */
     constructor() {
         this.data = {
             "player1":{
@@ -35,6 +45,11 @@ export class BattleshipGame {
         this.status = BattleshipGame.Status.Prestart;
     }
 
+    /**
+     * Sets the placement of all battleships at once for a specified player.
+     * @param player - The player whose ships are being placed.
+     * @param ships - The configuration of the ships being placed.
+     */
     setBattleships(player:BattleshipGame.Player, ships:Array<Battleship>) {
         if (ships.length < BattleshipGame.battleshipsTemplate.length) {
             throw new BattleshipGame.InvalidParametersError('Too few battleships. No ships placed.');
@@ -70,6 +85,14 @@ export class BattleshipGame {
         }
     }
 
+    /**
+     * Attacks a specified target.
+     * @param player - The attacking player
+     * @param target - The cell being attacked.
+     * @param target.row - The row of the cell being attacked.
+     * @param target.column - The column of the cell being attacked.
+     * @returns The result of the attack.
+     */
     shootTarget(player:BattleshipGame.Player, {row, column}:{row:string,column:string}):{'isHit':boolean,'sunkShips':Battleship|null} {
         const target:Cell = {
             'row': Number.parseInt(row),
@@ -137,6 +160,11 @@ export class BattleshipGame {
         };
     }
 
+    /**
+     * Gets all game data accessible to a specified player.
+     * @param player - The player whose data to retrieve.
+     * @returns The player's data.
+     */
     getData(player:BattleshipGame.Player) {
         const other = player === BattleshipGame.Player.Player1 ? BattleshipGame.Player.Player2 : BattleshipGame.Player.Player1;
 
@@ -152,6 +180,10 @@ export class BattleshipGame {
         return data;
     }
 
+    /**
+     * Returns an empty board.
+     * @returns A 10x10 array of falses.
+     */
     static getEmptyBoard() {
         const board = [];
         for (let row = 0; row < 10; row++) {
@@ -163,6 +195,10 @@ export class BattleshipGame {
         }
         return board;
     }
+
+    /**
+     * Returns an example configuration of battleships.
+     */
     static battleshipsTemplate = [
         [
             { row: 0, column: 0 },

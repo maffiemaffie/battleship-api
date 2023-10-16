@@ -7,41 +7,47 @@ const my = {
     'turnName': "",
 }
 
+/**
+ * Takes a row-column pair and converts it to a letter-number pair.
+ * @param {number} row - The row to be parsed.
+ * @param {number} column - The column to be parsed.
+ * @returns {string} The parsed string.
+ */
 const parseRowColumn = (row, column) => {
     const letters = Object.freeze(['A','B','C','D','E','F','G','H','I','J']);
 
     return letters[row] + (column + 1);
 }
 
-const hardcodedShips = [ // for testing
-    [
-        { row: 0, column: 0 },
-        { row: 0, column: 1 },
-        { row: 0, column: 2 },
-        { row: 0, column: 3 },
-        { row: 0, column: 4 },
-    ],
-    [
-        { row: 1, column: 0 },
-        { row: 1, column: 1 },
-        { row: 1, column: 2 },
-        { row: 1, column: 3 },
-    ],
-    [
-        { row: 2, column: 0 },
-        { row: 2, column: 1 },
-        { row: 2, column: 2 },
-    ],
-    [
-        { row: 3, column: 0 },
-        { row: 3, column: 1 },
-        { row: 3, column: 2 },
-    ],
-    [
-        { row: 4, column: 0 },
-        { row: 4, column: 1 },
-    ],
-];
+// const hardcodedShips = [
+//     [
+//         { row: 0, column: 0 },
+//         { row: 0, column: 1 },
+//         { row: 0, column: 2 },
+//         { row: 0, column: 3 },
+//         { row: 0, column: 4 },
+//     ],
+//     [
+//         { row: 1, column: 0 },
+//         { row: 1, column: 1 },
+//         { row: 1, column: 2 },
+//         { row: 1, column: 3 },
+//     ],
+//     [
+//         { row: 2, column: 0 },
+//         { row: 2, column: 1 },
+//         { row: 2, column: 2 },
+//     ],
+//     [
+//         { row: 3, column: 0 },
+//         { row: 3, column: 1 },
+//         { row: 3, column: 2 },
+//     ],
+//     [
+//         { row: 4, column: 0 },
+//         { row: 4, column: 1 },
+//     ],
+// ];
 
 /**
  * Disables all inputs in a specified form.
@@ -97,6 +103,7 @@ const sendFetchRequest = async (url, method, params, body) => {
 }
 
 /**
+ * For testing
  * Logs all player data to the console
  */
 const logData = async () => {
@@ -324,7 +331,7 @@ const joinGame = async () => {
 /**
  * Form handlers
  */
-const init = () => {
+(() => {
     document.querySelector('#create-game').addEventListener('submit', e => {
         createGame();
 
@@ -358,6 +365,4 @@ const init = () => {
     });
 
     initAttackBoard();
-}
-
-init();
+})();
