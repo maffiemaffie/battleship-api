@@ -14,7 +14,7 @@ const createNewId = () => {
     const dateString = Date.now().toString().substring(7);
     const randomString = Math.trunc(Math.random() * 1000).toString();
     id = Number.parseInt(randomString + dateString, 10).toString(36);
-  } while (/1+|[4-5]+|8+|p+|x+|v+/gm.test(id) === true); // only allows characters in romanized arabic for fun
+  } while (/[0-1]+|[4-5]+|8+|p+|x+|v+/gm.test(id) === true); // only allows characters in romanized arabic for fun
 
   return id;
 };
