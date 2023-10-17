@@ -248,6 +248,17 @@ const battleshipSelected = () => {
     currentState = "placingFirst";
 }
 
+const setCurrentConfig = (battleships) => {
+    battleships.sort((a, b) => a.length - b.length);
+    currentConfig.destroyer = battleships[0];
+    currentConfig.submarine = battleships[1];
+    currentConfig.cruiser = battleships[2];
+    currentConfig.battleship = battleships[3];
+    currentConfig.carrier = battleships[4];
+
+    updateBoard();
+}
+
 /**
  * Creates the grid and assigns event handlers.
  */
@@ -286,4 +297,5 @@ export {
     currentConfig,
     initGameBoard,
     getCell,
+    setCurrentConfig,
 };

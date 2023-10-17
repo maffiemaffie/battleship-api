@@ -1,4 +1,4 @@
-import { initGameBoard, currentConfig, getCell } from "./configure-battleships.js";
+import { initGameBoard, currentConfig, getCell, setCurrentConfig } from "./configure-battleships.js";
 import { activeCell, setCell, initAttackBoard, resetActive, disableTargetGrid, enableTargetGrid } from "./launch-attack.js";
 
 const my = {
@@ -245,6 +245,16 @@ const checkForTurn = async () => {
     }
 }
 
+const autofill = async () => {
+    const response = await sendFetchRequest('/battleshipTemplate', 'GET');
+    const responseJson = await response.json();
+
+    if (response.status === 200) {
+        setCurrentConfig(responseJson.battleships);
+        ready();
+    }
+}
+
 /**
  * Sent when player is ready to start. Sends battleship configuration to the server.
  * If the battleship config is valid, wait for first turn to attack.
@@ -363,6 +373,8 @@ const joinGame = async () => {
         e.preventDefault();
         return false;
     });
+
+    // document.querySelector('#autofill-ships').addEventListener('click', autofill);
 
     initAttackBoard();
 })();
