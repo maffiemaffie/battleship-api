@@ -77,7 +77,7 @@ const targetClicked = (e) => {
 
     const newActive = getCell(row, column)
     newActive.classList.add('attack');
-    newActive.value = '𐀏';
+    newActive.value = '🚀';
     activeCell = {row, column};
 
     document.querySelector('#attack-board [type="submit"]').removeAttribute('disabled');
