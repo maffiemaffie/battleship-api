@@ -1,5 +1,40 @@
 body {
+    display: grid;
     font-family: Arial, Helvetica, sans-serif;
+
+    grid-template-rows: auto 1fr;
+
+    width: 100vw;
+    height: 100vh;
+}
+
+main {
+    display: grid;
+    grid-template-areas: "sidebar battleship spacer";
+
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: auto 1fr;
+
+    gap: 3rem;
+}
+
+h1 {
+    width: 100vw;
+    text-align: center;
+}
+
+fieldset {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+form {
+    border: inset 2px;
+}
+
+#create-join-game {
+    grid-area: sidebar;
 }
 
 #my-attacks > .hit {
@@ -30,16 +65,16 @@ body {
 }
 
 .cell {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     background-color: lightgrey;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     padding: 0;
-    line-height: 30px;
-    font-size: 30px;
+    line-height: 25px;
+    font-size: 25px;
     font-weight: bold;
 }
 
@@ -115,22 +150,29 @@ body {
 }
 
 #grid-layout {
+    grid-area: battleship;
+
+    justify-self: center;
+    align-self: center;
+
     display: grid;
     grid-template-areas: 
     "game attack my-attacks"
     "game attack opp-attacks";
 
-    grid-template-columns: auto 400px 1fr;
+    grid-template-columns: auto;
     grid-template-rows: 1fr 1fr;
 
     gap: 10px;
 
     max-width: fit-content;
-    height: 410px;
+    padding: 2rem;
+
+    background-color: lightgrey;
 }
 
 #grid-layout:has(#battleship-select.hidden) {
-    grid-template-columns: 400px 400px 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
 }
 
 #game-board-container {
@@ -139,6 +181,21 @@ body {
 
 #attack-board-container {
     grid-area: attack;
+}
+
+#attack-board-container,
+#game-board-container {
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+}
+
+#game-board, #attack-board {
+    align-self: end;
+    height: fit-content;
+    width: fit-content;
+    padding: 1em;
 }
 
 #my-attacks-container {
@@ -160,6 +217,11 @@ body {
 
     width: 100%;
     height: 100%;
+
+    border: 2px inset;
+    padding: 0 1em;
+
+    box-sizing: border-box;
 }
 
 #my-attacks, #opponent-attacks {

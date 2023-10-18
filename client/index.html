@@ -9,95 +9,94 @@
     <script src="index.js" type="module"></script>
 </head>
 <body>
-    <div id="create-game-wrapper">
-        <form id="create-game">
-            <input type="submit" value="New Game">
-        </form>
-        <p class="hidden sucess">Game created! Join using id: <span id="game-id-display"></span></p>
-    </div>
-    <div id="join-game-wrapper">
-        <form id="join-game">
-            <input type="submit" value="Join Game">
-            <label for="game-id">game id:</label>
-            <input id="game-id" type="text" name="gameId" required>
-        </form>
-        <p class="hidden success">Game joined!</p>
-        <p id="game-not-found" class="hidden error">Couldn't find game</p>
-        <p id="game-full" class="hidden error">Game already full</p>
-    </div>
-    
-    <p id="you-won" class="hidden success">You won :)</p>
-    <p id="you-lost" class="hidden error">You lost :(</p>
-    <!-- <form id="launch-attack">
-        <label for="row">x:</label>
-        <input id="row" type="text" name="row" required>
-        <label for="column">y:</label>
-        <input id="column" type="text" name="column" required>
-        <input type="submit" value="attack!">
-    </form> -->
-    <div id="grid-layout">
-        <section id="game-board-container" class="hidden">
-            <header>
-                <h2>My Ships</h2>
-                <p>Click ship in sidebar to place on the board. Click "Confirm Battleships" when all ships are placed.</p>
-            </header>
-            <form id="game-board">
-                <div>
-                    <fieldset id="battleship-select">
-                        <div>
-                            <input type="radio" id="carrier-option" name="battleship" value="carrier">
-                            <label for="carrier-option">Carrier (5)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="battleship-option" name="battleship" value="battleship">
-                            <label for="battleship-option">Battleship (4)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="cruiser-option" name="battleship" value="cruiser">
-                            <label for="cruiser-option">Cruiser (3)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="submarine-option" name="battleship" value="submarine">
-                            <label for="submarine-option">Submarine (3)</label>
-                        </div>
-                        <div>
-                            <input type="radio" id="destroyer-option" name="battleship" value="destroyer">
-                            <label for="destroyer-option">Destroyer (2)</label>
-                        </div>
-                    </fieldset>
-                    <input id="reset-ship" type="button" value="Reset Ship">
-                </div>
-                <div>
-                    <fieldset id="grid"></fieldset>
-                    <input type="submit" value="Confirm Battleships">
-                    <!-- <input id="autofill-ships" type="button" value="Autofill Ships"> -->
-                </div>
-            </form>
-        </section>
-        <section id="attack-board-container" class="hidden">
-            <header>
-                <h2>Coordinate an Attack</h2>
-                <p>Click on the board to select a target, then click "Launch Attack".</p>
-            </header>
-            <form id="attack-board">
-                <fieldset id="attack-grid"></fieldset>
-                <input type="submit" value="Launch Attack!">
-            </form>
-        </section>
-        <section id="my-attacks-container" class="hidden">
-            <header>
-                <h3>my attacks</h3>
-            </header>
-            <ul id="my-attacks">
-            </ul>
-        </section>
-        <section id="opponent-attacks-container" class="hidden">
-            <header>
-                <h3>opponent's attacks</h3>
-            </header>
-            <ul id="opponent-attacks">
-            </ul>
-        </section>
-    </div>
+    <header>
+        <h1>Battleship</h1>
+    </header>
+    <main>
+        <div id="create-join-game">
+            <div id="create-game-wrapper">
+                <form id="create-game">
+                    <input type="submit" value="New Game">
+                </form>
+                <p class="hidden sucess">Game created! Join using id: <span id="game-id-display"></span></p>
+            </div>
+            <div id="join-game-wrapper">
+                <form id="join-game">
+                    <input type="submit" value="Join Game">
+                    <label for="game-id">game id:</label>
+                    <input id="game-id" type="text" name="gameId" required>
+                </form>
+                <p class="hidden success">Game joined!</p>
+                <p id="game-not-found" class="hidden error">Couldn't find game</p>
+                <p id="game-full" class="hidden error">Game already full</p>
+            </div>
+        </div>
+        
+        <p id="you-won" class="hidden success">You won :)</p>
+        <p id="you-lost" class="hidden error">You lost :(</p>
+        <div id="grid-layout">
+            <section id="game-board-container" class="hidden">
+                <header>
+                    <h2>My Ships</h2>
+                    <p>Click ship in sidebar to place on the board. Click "Confirm Battleships" when all ships are placed.</p>
+                </header>
+                <form id="game-board">
+                    <div>
+                        <fieldset id="battleship-select">
+                            <div>
+                                <input type="radio" id="carrier-option" name="battleship" value="carrier">
+                                <label for="carrier-option">Carrier (5)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="battleship-option" name="battleship" value="battleship">
+                                <label for="battleship-option">Battleship (4)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="cruiser-option" name="battleship" value="cruiser">
+                                <label for="cruiser-option">Cruiser (3)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="submarine-option" name="battleship" value="submarine">
+                                <label for="submarine-option">Submarine (3)</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="destroyer-option" name="battleship" value="destroyer">
+                                <label for="destroyer-option">Destroyer (2)</label>
+                            </div>
+                        </fieldset>
+                        <input id="reset-ship" type="button" value="Reset Ship">
+                    </div>
+                    <div>
+                        <fieldset id="grid"></fieldset>
+                        <input type="submit" value="Confirm Battleships">
+                    </div>
+                </form>
+            </section>
+            <section id="attack-board-container" class="hidden">
+                <header>
+                    <h2>Coordinate an Attack</h2>
+                    <p>Click on the board to select a target, then click "Launch Attack".</p>
+                </header>
+                <form id="attack-board">
+                    <fieldset id="attack-grid"></fieldset>
+                    <input type="submit" value="Launch Attack!">
+                </form>
+            </section>
+            <section id="my-attacks-container" class="hidden">
+                <header>
+                    <h3>my attacks</h3>
+                </header>
+                <ul id="my-attacks">
+                </ul>
+            </section>
+            <section id="opponent-attacks-container" class="hidden">
+                <header>
+                    <h3>opponent's attacks</h3>
+                </header>
+                <ul id="opponent-attacks">
+                </ul>
+            </section>
+        </div>
+    </main>
 </body>
 </html>
