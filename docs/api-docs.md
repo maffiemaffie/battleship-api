@@ -213,20 +213,28 @@ The id of the requesting player.
 
 ## Project Questions
 
-### What is the intended purpose of your application?
+### What is the purpose of your application?
 My application allows pairs of users to play multiplayer battleship online using their web browser.
 
 ### What data will be stored and delivered by the API?
 The data for each game session of battleship will be stored by the API and delivered to the client to enable gameplay.
 
-### What work has been completed for this prototype?
-The game logic is fully functional. The API is nearly fully functional. The client interface is barely functional with severely throttled gameplay.
+### What went right in the development of this project?
+The game logic was fairly quick to implement and it was relatively easy to hook it up to the API. Most of the work was designing/implementing the UI/UX.
 
-### What work is left, and how do you plan to complete it?
-The client interface needs to be basically entirely built. I already have it designed, it just needs to be coded.
+### What went wrong in the development of this project?
+I spent a lot of time just kinda staring at the screen because I wasn't sure how I wanted to style what the user sees. I knew where I wanted everything to be and how I wanted it to function but I lost a lot of time since I hadn't planned out the visual part beforehand.
 
-### Do you have a plan for going above and beyond? If so, what is it?
-I don't know if typescript qualifies for that. That's not the reason I used it, but I did use it for the game logic so if that works then I plan to go above and beyond. If not, then I don't plan to go above and beyond.
+### What did you learn while developing this project?
+I learned a lot about the way I plan out projects and was able to make a lot of changes this time that helped me work more effectively. On the code end, I actually ended up learning a lot more than I was expecting about HTTP response codes, beyond just the ones I was using.
 
-### If you used any borrowed code or code fragments, where did you get them from?
+### If you were to continue, what would you do to improve your application?
+I want to approve the appearance a lot. I might actually take some time to make it look better just for my portfolio. There's a lot of work that could go into better (or any) styling that I feel like it deserves.  
+
+I also wish I could add more functionality beyond just the game. I had wanted to add player profiles (at the very least, just a display name and color that lasted until the end of the game) but didn't have the time to implement it.
+
+### If you went above and beyond, how did you do so?
+I don't know if typescript qualifies for that. That's not the reason I used it, but I did use it for the game logic so if that works then I went above and beyond. If not, then I didn't go above and beyond.
+
+### If you used any borrowed code or code fragments, where did you get them from? What do the code fragments do? Where are they in your code?
 I used the webpack and typescript documentation to help configure my webpack settings. Those came from their respective documentation pages and are contained in my [webpack.config.js](../webpack.config.js) and [tsconfig.json](../tsconfig.json) files, respectively.
