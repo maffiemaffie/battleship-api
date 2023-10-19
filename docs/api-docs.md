@@ -17,6 +17,7 @@ Creates a new game of battleship.
 |-|-|
 |201|The game has successfully been created|
 
+---
 
 ## Joining an existing game
 `POST /join`  
