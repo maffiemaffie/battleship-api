@@ -40,6 +40,8 @@ The id of the game to be joined.
 |403|The game is already full|
 |404|No game with matching ID found|
 
+---
+
 ## Setting battleships and starting the game
 `POST /ready`  
 If game status is `pendingStart` (see [status](#get-the-game-status)), places the battleships on the board and readies the server to begin the game.
@@ -61,6 +63,8 @@ The starting configuration of battleships. [See `/battleshipTemplate`](#get-the-
 |403|Configuration was attempted after the game was started|
 |404|Either the game or the player couldn't be found|
 |422|The battleship configuration was invalid (overlapping ships, ship not on grid)|
+
+---
 
 ## Launching Attacks
 `POST /shoot`  
@@ -100,6 +104,8 @@ The target column
 |404|Either the game or the player couldn't be found|
 |422|The target was invalid (target already attacked, target not on grid)|
 
+---
+
 ## Get an empty board
 `GET /boardTemplate`  
 Returns a 10x10 2D array of `false`'s, representing the board with no battleships.
@@ -115,6 +121,8 @@ Returns a 10x10 2D array of `false`'s, representing the board with no battleship
 | Status Code | Description |
 |-|-|
 |200|Success|
+
+---
 
 ## Get the template for battleships
 `GET /battleshipTemplate`  
@@ -144,6 +152,8 @@ Returns an example of a valid battleship configuration (see [battleship configur
 |-|-|
 |200|Success|
 
+---
+
 ## Get the game status
 `GET /status`  
 Returns the current status of the game (`pendingStart`, `hostTurn`, `guestTurn`, `gameOver`).
@@ -164,6 +174,8 @@ The id of the active game.
 |-|-|
 |200|Success|
 |404|No game with matching ID found|
+
+---
 
 ## Get your game data
 `GET /data`  
