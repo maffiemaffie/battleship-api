@@ -4,7 +4,7 @@
 Online multiplayer battleship :)
 
 ## Let me play 🛳️
-The code is currently being hosted [here](https://battleship-api-37b96d1716ba.herokuapp.com)!  
+The code is currently being hosted [here](https://elia-battleship.glitch.me/)!  
 Just start a game, send your friend the game id and you're good to go.
 
 ## Let me host it myself 🚢
